@@ -1,0 +1,72 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
+schema_version: 1
+
+context:
+  version: "1.6.0"
+  python_check_max: "3.14"
+
+package:
+  name: fqdn
+  version: ${{ version }}
+
+source:
+  url: https://files.pythonhosted.org/packages/source/f/fqdn/fqdn-${{ version }}.tar.gz
+  sha256: e39bf62e2a9481aa2cb780554fdfd944dd8ee5f230eb831684d539cbafed8de2
+
+build:
+  number: 0
+  noarch: python
+  script:
+    - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation --disable-pip-version-check --check-build-dependencies
+
+requirements:
+  host:
+    - pip
+    - python ${{ python_min }}.*
+    - setuptools >=77
+    - setuptools_scm >=8
+  run:
+    - python >=${{ python_min }},<4
+
+tests:
+  - package_contents:
+      strict: true
+      files:
+        - etc/conda/test-files/fqdn/**
+      site_packages:
+        - fqdn-${{ version }}.dist-info/**
+        - fqdn/**
+  - python:
+      imports: fqdn
+      pip_check: true
+      python_version:
+        - ${{ python_check_max }}.*
+        - ${{ python_min }}.*
+  - files:
+      source:
+        - pyproject.toml
+        - tests/**
+    requirements:
+      run:
+        - pip
+        - pytest-cov
+        - python ${{ python_min }}.*
+    script:
+      - cd tests
+      - coverage run --source=fqdn --branch -m pytest -vv --tb=long --color=yes
+      - coverage report --show-missing --skip-covered --fail-under=92
+  # TODO: perhaps enable after `python_min: 3.11` is widely distributed
+  # - downstream: jsonschema
+
+about:
+  summary: |-
+    Validates fully-qualified domain names against RFC 1123, so that they are
+    acceptable to modern browsers
+  license: MPL-2.0
+  license_file: LICENSE
+  homepage: https://pypi.org/proejct/fqdn
+  repository: https://github.com/ypcrts/fqdn
+
+extra:
+  recipe-maintainers:
+    - bollwyvl

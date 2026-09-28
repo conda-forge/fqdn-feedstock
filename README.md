@@ -3,11 +3,14 @@ About fqdn-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/fqdn-feedstock/blob/main/LICENSE.txt)
 
-Home: https://github.com/ypcrts/fqdn
+Home: https://pypi.org/proejct/fqdn
 
 Package license: MPL-2.0
 
-Summary: Validates fully-qualified domain names against RFC 1123, so that they are acceptable to modern bowsers
+Summary: Validates fully-qualified domain names against RFC 1123, so that they are
+acceptable to modern browsers
+
+Development: https://github.com/ypcrts/fqdn
 
 Current build status
 ====================

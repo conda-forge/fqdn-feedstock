@@ -1,19 +1,19 @@
-{% set version = "1.5.1" %}
+{% set version = "1.6.0" %}
 
 package:
   name: fqdn
   version: {{ version }}
 
 source:
-  - url: https://pypi.org/packages/source/f/fqdn/fqdn-{{ version }}.tar.gz
-    sha256: 105ed3677e767fb5ca086a0c1f4bb66ebc3c100be518f0e0d755d9eae164d89f
+  - url: https://files.pythonhosted.org/packages/source/f/fqdn/fqdn-{{ version }}.tar.gz
+    sha256: e39bf62e2a9481aa2cb780554fdfd944dd8ee5f230eb831684d539cbafed8de2
     folder: dist
   - url: https://github.com/ypcrts/fqdn/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: a2c026226f1a1eaace81362fda27b3df479693aefe19f160d6c4c3a032add498
+    sha256: 6a6374075ad9417368f9f702ceec698cceb41b3ab8202ebc6c3ff03c774e1e73
     folder: src
 
 build:
-  number: 1
+  number: 0
   noarch: python
   script: cd dist && {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
